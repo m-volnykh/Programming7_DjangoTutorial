@@ -31,14 +31,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "polls.apps.PollsConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
+    "django.contrib.sites",
+    # allauth
+    "allauth",  
+    "allauth.account", 
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.yandex',
+    # локальные
+    "polls.apps.PollsConfig", 
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -49,14 +56,33 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # allauth
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+# django-allauth configurations
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+#AUTH_USER_MODEL = 'users.User'
+
+SITE_ID = 1
+
+# Log in/out settings
+LOGIN_REDIRECT_URL = '/polls/' # перенаправление после успешного логина
+LOGOUT_REDIRECT_URL = '/accounts/login/' # перенаправление после логаута
+LOGIN_URL = '/accounts/login/'
 
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,11 +107,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Log in/out settings
-LOGIN_REDIRECT_URL = '/polls/' # перенаправление после успешного логина
-LOGOUT_REDIRECT_URL = '/accounts/login/' # перенаправление после логаута
-LOGIN_URL = '/accounts/login/'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
