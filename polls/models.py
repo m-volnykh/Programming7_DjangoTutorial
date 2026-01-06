@@ -26,4 +26,4 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def __str__(self): #object representation
-        return self.choice_text_text
+        return self.choice_text

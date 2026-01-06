@@ -19,5 +19,12 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls'))
+    
+    path('polls/', include('polls.urls')),
+
+    # регистрация
+    path("accounts/", include("users.urls")),
+
+    # login / logout / password reset
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

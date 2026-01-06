@@ -1,6 +1,6 @@
 from django.db.models import F
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -74,3 +74,4 @@ def vote(request, question_id):
         # не сохранять один и тот же ответ дважды, если пользователь
         # нажмет "назад"
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+    

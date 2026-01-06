@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,10 @@ DATABASES = {
     }
 }
 
+# Log in/out settings
+LOGIN_REDIRECT_URL = '/polls/' # перенаправление после успешного логина
+LOGOUT_REDIRECT_URL = '/accounts/login/' # перенаправление после логаута
+LOGIN_URL = '/accounts/login/'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
